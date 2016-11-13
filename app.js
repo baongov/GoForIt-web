@@ -4,9 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var session = require('express-session');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var authenticate = require('./routes/authentication')(passport);
 
 var app = express();
 
@@ -14,16 +16,28 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+//providing auth-api to passport so that it can use it.
+var initPassport = require('./passport/passport-init');
+initPassport(passport);
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'keyboard cat'
+}));
+app.use(passport.initialize()); //initializing passport
+app.use(passport.session()); //initializing passport session
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/auth', authenticate);
+app.use(express.static(path.join(__dirname, 'Angular')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'views')));
+app.use(express.static(path.join(__dirname, 'bower_components')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -41,6 +55,14 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+
+//running server on node
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+  console.log('Example app listening at http://%s:%s', host, port);
 });
 
 module.exports = app;
