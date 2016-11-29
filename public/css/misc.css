@@ -15,3 +15,72 @@
     background-color: #3e8e41;
 }
 
+.button.active{
+    background-color: red;
+}
+.lbl-checkbox
+{
+  display: block;
+  color: #FFF;
+  background: #6fc138;
+  padding: 5px 10px;
+  text-align: center;
+  border: 1px solid #000;
+}
+.nav li input[type="checkbox"]
+{
+  display: block;
+  margin-top: 10px;
+  margin-left: 65px;
+}
+.navbar-nav>li>a
+{
+  padding-bottom: 0 !important;
+
+}
+.navbar-nav
+{
+  width: 100%;
+  margin: 15px 0 10px 0;
+}
+.nav>li {
+    position: relative;
+    display: block;
+    width: 20%;
+}
+.caption
+{
+  position: absolute;
+  background: rgba(0,0,0,0.75);
+  padding: 20px;
+  color: #FFF;
+  bottom: 0;
+  left:0;
+  width: 100%;
+  font-size: 15px;
+  text-align: left;
+}
+.caption-top span{
+  display: inline-block;
+}
+.caption-top .title
+{
+  width: 75%;
+}
+.caption-top .favourite
+{
+  width: 20%;
+  color: yellow;
+  text-align: right;
+}
+.caption-top .favourite i
+{
+  font-size: 15px;
+  margin: 0 3px;
+}
+footer{
+  position: fixed;;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 0;
+}
