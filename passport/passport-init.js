@@ -31,7 +31,7 @@ module.exports = function(passport){
           var post = {
             idFacebook: profile.id,
             displayName: profile.displayName,
-            photo: null,
+            photo: profile.photos[0].value,
             email: profile.emails[0].value,
             gender: profile.gender,
             address: null,

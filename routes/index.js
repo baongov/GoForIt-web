@@ -18,4 +18,8 @@ router.get('/gotogether', function(req, res, next) {
   res.render('go', { title: 'Express' });
 });
 
+router.get('/profile', function(req, res, next) {
+  res.render('Profile', { title: 'Profile' });
+});
+
 module.exports = router;

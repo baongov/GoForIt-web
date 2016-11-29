@@ -21,10 +21,14 @@ module.exports = function(passport){
 	     }));
 	router.get('/loginState', function(req, res){
 		if (req.isAuthenticated())
-			res.send({'isLogin':true})
+			res.send({'isLogin':true, 'user': {'displayName': req.user.displayName, 'photo': req.user.photo}})
 		else
 			res.send({'isLogin':false})
-	})
+	});
+
+	router.get('/profile', function(req, res){
+
+	});
 	 function isLoggedIn(req, res, next) {
 
 	     // if user is authenticated in the session, carry on

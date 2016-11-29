@@ -9,7 +9,7 @@ CREATE TABLE `Users` (
 `id` int(10) NOT NULL auto_increment,
 `idFacebook` varchar(40) NOT NULL,
 `displayName` varchar(40) NOT NULL,
-`photo` varchar(200),
+`photo` varchar(500),
 `email` varchar(100),
 `gender` char(6) NOT NULL,
 `address` varchar(50) default '',
