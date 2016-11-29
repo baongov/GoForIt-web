@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+  <script src="js/jssor.slider-21.1.6.mini.js" type="text/javascript"></script>
+  <link href="css/ninja-slider.css" rel="stylesheet" />
+  <script src="js/ninja-slider.js"></script>
+  <link href="css/thumbnail-slider.css" rel="stylesheet" type="text/css" />
+  <script src="js/thumbnail-slider.js" type="text/javascript"></script>
+<!--   <style>
+    body {font: normal 0.9em Arial;color:#222;}
+    header {display:block; font-size:1.2em;margin-bottom:100px;}
+    header a, header span {
+      display: inline-block;
+      padding: 4px 8px;
+      margin-right: 10px;
+      border: 2px solid #000;
+      background: #DDD;
+      color: #000;
+      text-decoration: none;
+      text-align: center;
+      height: 20px;
+    }
+    header span {background:white;}
+    a {color: #1155CC;}
+  </style> -->
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand" href="#">GO FOR IT</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+<!--         <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul> -->
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container-fluid text-center">    
+   <h3>GO PAGE</h3><br>
+   <div style="width:1000px;margin:80px auto;">
+    <div id="ninja-slider" style="float:left;">
+      <div class="slider-inner">
+        <ul>
+        <li><a class="ns-img" href="img/slide/1.jpg"></a></li>
+          <li><a class="ns-img" href="img/slide/2.jpg"></a></li>
+          <li><a class="ns-img" href="img/slide/3.jpg"></a></li>
+          <li><a class="ns-img" href="img/slide/4.jpg"></a></li>
+          <li><a class="ns-img" href="img/slide/5.jpg"></a></li>
+          <li><a class="ns-img" href="img/slide/6.jpg"></a></li>
+          <li><a class="ns-img" href="img/slide/7.jpg"></a></li>
+          <li><a class="ns-img" href="img/slide/8.jpg"></a></li>
+          <li><a class="ns-img" href="img/slide/9.jpg"></a></li>
+          <li><a class="ns-img" href="img/slide/10.jpg"></a></li>
+          <li><a class="ns-img" href="img/slide/11.jpg"></a></li>
+          <li><a class="ns-img" href="img/slide/12.jpg"></a></li>
+        </ul>
+        <div class="fs-icon" title="Expand/Close"></div>
+      </div>
+    </div>
+    <div id="thumbnail-slider" style="float:left;">
+      <div class="inner">
+        <ul>
+          <li>
+            <a class="thumb" href="img/slide/1.jpg"></a>
+          </li>
+          <li>
+            <a class="thumb" href="img/slide/2.jpg"></a>
+          </li>
+          <li>
+            <a class="thumb" href="img/slide/3.jpg"></a>
+          </li>
+          <li>
+            <a class="thumb" href="img/slide/4.jpg"></a>
+          </li>
+          <li>
+            <a class="thumb" href="img/slide/5.jpg"></a>
+          </li>
+          <li>
+            <a class="thumb" href="img/slide/6.jpg"></a>
+          </li>
+          <li>
+            <a class="thumb" href="img/slide/7.jpg"></a>
+          </li>
+          <li>
+            <a class="thumb" href="img/slide/8.jpg"></a>
+          </li>
+          <li>
+            <a class="thumb" href="img/slide/9.jpg"></a>
+          </li>
+          <li>
+            <a class="thumb" href="img/slide/10.jpg"></a>
+          </li>
+          <li>
+            <a class="thumb" href="img/slide/11.jpg"></a>
+          </li>
+          <li>
+            <a class="thumb" href="img/slide/12.jpg"></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div style="clear:both;"></div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>Footer Text</p>
+</footer>
+
+</body>
+</html>

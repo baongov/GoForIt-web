@@ -6,4 +6,16 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/promo', function(req, res, next) {
+  res.render('promo', { title: 'Express' });
+});
+
+router.get('/go', function(req, res, next) {
+  res.render('go', { title: 'Express' });
+});
+
+router.get('/gotogether', function(req, res, next) {
+  res.render('go', { title: 'Express' });
+});
+
 module.exports = router;
