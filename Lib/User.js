@@ -10,8 +10,9 @@ exports.findByFacebookID = function(idFacebook, callback){
   pool.getConnection(function(err, connection) {
     var query = connection.query( "SELECT * FROM Users WHERE idFacebook = '" + idFacebook + "'", function(err, rows) {
        connection.release();
-       callback(null,rows);
+       callback(null,rows[0]);
      });
+     console.log(query.sql);
   });
 }
 
