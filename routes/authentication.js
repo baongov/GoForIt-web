@@ -13,13 +13,18 @@ module.exports = function(passport){
 	});
 
 	router.get('/facebook', passport.authenticate('facebook', { scope : 'email' }));
-
-	 // handle the callback after facebook has authenticated the user
-	 router.get('/facebook/callback',
+	// handle the callback after facebook has authenticated the user
+	router.get('/facebook/callback',
 	     passport.authenticate('facebook', {
 	         successRedirect : '/',
 	         failureRedirect : '/'
 	     }));
+	router.get('/loginState', function(req, res){
+		if (req.isAuthenticated())
+			res.send({'isLogin':true})
+		else
+			res.send({'isLogin':false})
+	})
 	 function isLoggedIn(req, res, next) {
 
 	     // if user is authenticated in the session, carry on

@@ -5,7 +5,7 @@
  * @name GoForIt
  * Main module of the application.
  */
-var main = angular.module('mainModule', []);
+var main = angular.module("mainModule", ['ngRoute','ui.router']);
 
 //Routing Configuration (define routes)
 main.config([
@@ -15,8 +15,6 @@ main.config([
         $stateProvider
             .state('home', {
                 url: '/',
-                templateUrl: 'Index.html',
                 controller: 'MainController'
             })
-     }
-});
+     }]);

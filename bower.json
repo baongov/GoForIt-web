@@ -9,6 +9,8 @@
   "homepage": "https://github.com/ngovietbao/GoForIt-web",
   "dependencies": {
     "angular": "^1.4.0",
-    "bootstrap": "^3.2.0"
+    "bootstrap": "^3.2.0",
+    "angular-route": "^1.5.9",
+    "angular-ui-router": "^0.3.2"
   }
 }
