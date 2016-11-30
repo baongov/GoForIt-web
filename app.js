@@ -9,9 +9,11 @@ var session = require('express-session');
 
 var index = require('./routes/index');
 var authenticate = require('./routes/authentication')(passport);
-
+var socket = require('./routes/socket.js');
 var app = express();
-
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+io.sockets.on('connection', socket);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -59,10 +61,8 @@ app.use(function(err, req, res, next) {
 
 
 //running server on node
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-  console.log('Example app listening at http://%s:%s', host, port);
+server.listen(3000, function () {
+  console.log('Example app listening at 3000');
 });
 
 module.exports = app;
