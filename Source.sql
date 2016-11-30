@@ -23,17 +23,36 @@ CREATE TABLE `Destinations` (
   `name` varchar(100) NOT NULL,
   `address` varchar(200) NOT NULL,
   `description` varchar(1000) default '',
-  `rate` int(1) default 0,
   `promotion` varchar(1000) default '',
   `photos` varchar(500),
   `lat` FLOAT( 10, 6 ) NOT NULL ,
   `lng` FLOAT( 10, 6 ) NOT NULL,
   PRIMARY KEY (`id`)
 );
-INSERT INTO Users SET `idFacebook` = '1152419461324591', `displayName` = 'Anonimity', `photo` = NULL, `email` = 'anonimity@xyz.com', `gender` = 'female', `address` = NULL, `age` = 18;
+
+CREATE TABLE `UserDesRate` (
+  `idUser` int(10) NOT NULL,
+  `idDestination` int(10) NOT NULL,
+  `rate` int(1),
+  FOREIGN KEY (idUser) REFERENCES Users(id),
+  FOREIGN KEY (idDestination) REFERENCES Destinations(id)
+);
+
+INSERT INTO Users SET `idFacebook` = '0000000000000000', `displayName` = 'Test1', `gender` = 'female';
+INSERT INTO Users SET `idFacebook` = '0000000000000001', `displayName` = 'Test2', `gender` = 'male';
+INSERT INTO Users SET `idFacebook` = '0000000000000002', `displayName` = 'Test3', `gender` = 'female';
+INSERT INTO Users SET `idFacebook` = '0000000000000003', `displayName` = 'Test4', `gender` = 'male';
 
 INSERT INTO Destinations SET `type` = 'touristPlace', `name` = 'Nguyen Hue Walking Street', `address` = '66A Nguyễn Huệ, Bến Nghé, Quận 1', `photos`='1', `lat` = 10.774359, `lng` = 106.703565;
-INSERT INTO Destinations S
-
-ET `type` = 'cinema', `name` = 'Train to Busan - Lotte Cinema', `address` = 'Tầng 4, Lotte Mart, 968 Đường, 3 Tháng 2, Phường 15, District 11, Ho Chi Minh, Việt Nam', `photos`='2', `lat` = 10.764614, `lng` = 106.656823;
+INSERT INTO Destinations SET `type` = 'cinema', `name` = 'Train to Busan - Lotte Cinema', `address` = 'Tầng 4, Lotte Mart, 968 Đường, 3 Tháng 2, Phường 15, District 11, Ho Chi Minh, Việt Nam', `photos`='2', `lat` = 10.764614, `lng` = 106.656823;
 INSERT INTO Destinations SET `type` = 'restaurant', `name` = 'KFC Ly Thuong Kiet', `address` = '446 Lý Thường Kiệt, phường 7, Hồ Chí Minh, phường 7 Tân Bình Hồ Chí Minh, Việt Nam', `photos`='3', `lat` = 10.786990, `lng` = 106.654075;
+
+INSERT INTO UserDesRate SET `idUser` = 1, `idDestination` = 1, `rate` = 3;
+INSERT INTO UserDesRate SET `idUser` = 1, `idDestination` = 2, `rate` = 5;
+INSERT INTO UserDesRate SET `idUser` = 1, `idDestination` = 3, `rate` = 1;
+INSERT INTO UserDesRate SET `idUser` = 2, `idDestination` = 1, `rate` = 4;
+INSERT INTO UserDesRate SET `idUser` = 2, `idDestination` = 3, `rate` = 1;
+INSERT INTO UserDesRate SET `idUser` = 3, `idDestination` = 1, `rate` = 5;
+INSERT INTO UserDesRate SET `idUser` = 3, `idDestination` = 2, `rate` = 4;
+INSERT INTO UserDesRate SET `idUser` = 3, `idDestination` = 3, `rate` = 2;
+INSERT INTO UserDesRate SET `idUser` = 4, `idDestination` = 3, `rate` = 2;

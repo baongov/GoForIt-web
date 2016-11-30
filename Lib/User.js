@@ -20,7 +20,7 @@ exports.findById = function(id, callback){
   pool.getConnection(function(err, connection) {
     var query = connection.query( "SELECT * FROM Users WHERE id = '" + id + "'", function(err, rows) {
        connection.release();
-       callback(null,rows);
+       callback(null,rows[0]);
      });
     console.log(query.sql);
   });
