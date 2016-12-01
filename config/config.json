@@ -2,8 +2,8 @@
     "development": {
         "dialect": "mysql",
         "username": "root",
-        "password": "",
-        "database": "smo",
+        "password": "toor",
+        "database": "GOFORITDB;",
         "host": "127.0.0.1",
         "pool": {
             "max": 5,
