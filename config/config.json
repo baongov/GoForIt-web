@@ -2,7 +2,7 @@
     "development": {
         "dialect": "mysql",
         "username": "root",
-        "password": "toor",
+        "password": "",
         "database": "smo",
         "host": "127.0.0.1",
         "pool": {
