@@ -10,6 +10,7 @@ var models = require('./models');
 models.sequelize.sync();
 var index = require('./routes/index');
 var authenticate = require('./routes/authentication')(passport);
+var publicInfo = require('./routes/public');
 var socket = require('./routes/socket.js');
 var app = express();
 var server = require('http').Server(app);
@@ -37,6 +38,7 @@ app.use(passport.session()); //initializing passport session
 
 app.use('/', index);
 app.use('/auth', authenticate);
+app.use('/public', publicInfo);
 app.use(express.static(path.join(__dirname, 'Angular')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));

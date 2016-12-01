@@ -17,4 +17,8 @@ main.config([
                 url: '/',
                 controller: 'MainController'
             })
+            .state('go', {
+                url: '/go',
+                controller: 'MainController'
+            })
      }]);

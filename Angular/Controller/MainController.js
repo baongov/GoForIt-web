@@ -18,5 +18,10 @@ main.controller("MainController", function ($scope, $http, $location, $rootScope
         $rootScope.imgsrc = response.data.user.photo
       }
     });
+    $http.get('/public/destinations').then(function(response)
+    {
+      $rootScope.listofdestination = response.data;
+      console.log(  $rootScope.listofdestination )
+    });
   }
 });
