@@ -1,100 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="/angular/angular.js"></script>
-  <script src="/angular-route/angular-route.js"></script>
-  <script src="/angular-ui-router/release/angular-ui-router.js"></script>
-  <script src="main.js"></script>
-  <script src="/Controller/MainController.js"></script>
-  <style>
-    /* Remove the navbar's default margin-bottom and rounded borders */
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/angular/angular.js"></script>
+    <script src="/angular-route/angular-route.js"></script>
+    <script src="/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="main.js"></script>
+    <script src="/Controller/MainController.js"></script>
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
 
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 450px}
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 
-    /* Set gray background color and 100% height */
-    .sidenav {
-      padding-top: 20px;
-      background-color: #f1f1f1;
-      height: 100%;
-    }
+        .row.content {
+            height: 450px
+        }
+        /* Set gray background color and 100% height */
 
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+        /* Set black background color, white text and some padding */
 
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height:auto;}
-    }
-  </style>
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+        /* On small screens, set height to 'auto' for sidenav and grid */
+
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+            .row.content {
+                height: auto;
+            }
+        }
+    </style>
 </head>
+
 <body>
-<div ng-app = "mainModule" ng-controller = "MainController" ng-init="load()">
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">GO FOR IT</a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="/auth/facebook" ng-hide="authenticated"><span class="glyphicon glyphicon-log-in"></span> Login</a>
-            <a href="/profile" ng-show="authenticated">
-              <table>
-                <tr>
-                    <td><img src="{{imgsrc}}" class="img-responsive" style="width:50%" alt="Image"></td>
-                    <td>{{username}}</td>
-                </tr>
-              </table>
-            </a>
-          </li>
-        </ul>
-      </div>
+    <div ng-app="mainModule" ng-controller="MainController" ng-init="load()">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">GO FOR IT</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/auth/facebook" ng-hide="authenticated"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                            <a data-toggle="modal" href="#profileModal" ng-show="authenticated">
+                                <table>
+                                    <tr>
+                                        <td><img src="{{imgsrc}}" class="img-responsive" style="width:50%" alt="Image"></td>
+                                        <td>{{username}}</td>
+                                    </tr>
+                                </table>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="modal fade" id="profileModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <form name="userForm" ng-controller="LoginCtrl" role="form" class="form-horizontal" novalidate>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Profile Setting</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Age</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control">
+                                        <option>Show my age</option>
+                                        <option>Don't show my age</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Show Facebook profile</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" >
+                                        <option>Yes</option>
+                                        <option>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Allow stranger message</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control">
+                                        <option>Yes</option>
+                                        <option>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-default" ng-click="login()" data-dismiss="modal" ng-disabled="loginForm.$invalid">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid text-center">
+            <h3>Shall we go?</h3>
+            <br>
+            <div class="row">
+                <div class="col-sm-4">
+                    <a href="/promo"><img src="img/promotion.jpg" class="img-responsive" style="width:100%" alt="Image"></a>
+                </div>
+                <div class="col-sm-4">
+                    <a href="/go"><img src="img/letsgo.jpg" class="img-responsive" style="width:100%" alt="Image"></a>
+                </div>
+                <div class="col-sm-4">
+                    <a href="/gotogether"><img src="img/w.png" class="img-responsive" style="width:100%" alt="Image"></a>
+                </div>
+            </div>
+        </div>
     </div>
-  </nav>
 
-  <div class="container-fluid text-center">
-    <h3>Shall we go?</h3><br>
-    <div class="row">
-      <div class="col-sm-4">
-      <a href="/promo"><img src="img/promotion.jpg" class="img-responsive" style="width:100%" alt="Image"></a>
-      </div>
-      <div class="col-sm-4">
-        <a href="/go"><img src="img/letsgo.jpg" class="img-responsive" style="width:100%" alt="Image"></a>
-      </div>
-      <div class="col-sm-4">
-        <a href="/gotogether"><img src="img/w.png" class="img-responsive" style="width:100%" alt="Image"></a>
-      </div>
+    <footer class="container-fluid text-center">
+        <p>Footer Text</p>
+    </footer>
     </div>
-  </div>
-</div>
-
-<footer class="container-fluid text-center">
-  <p>Footer Text</p>
-</footer>
-</div>
 </body>
+
 </html>
