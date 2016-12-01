@@ -30,10 +30,13 @@ CREATE TABLE `Destinations` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `UserDesRate` (
+CREATE TABLE `UserDesInteract` (
   `idUser` int(10) NOT NULL,
   `idDestination` int(10) NOT NULL,
-  `rate` int(1),
+  `rate` int(1) default 0,
+  `joined` int (1) default 0,
+  `notify` int(1) default 0,
+  PRIMARY KEY (idUser, idDestination),
   FOREIGN KEY (idUser) REFERENCES Users(id),
   FOREIGN KEY (idDestination) REFERENCES Destinations(id)
 );
@@ -47,12 +50,20 @@ INSERT INTO Destinations SET `type` = 'touristPlace', `name` = 'Nguyen Hue Walki
 INSERT INTO Destinations SET `type` = 'cinema', `name` = 'Train to Busan - Lotte Cinema', `address` = 'Tầng 4, Lotte Mart, 968 Đường, 3 Tháng 2, Phường 15, District 11, Ho Chi Minh, Việt Nam', `photos`='2', `lat` = 10.764614, `lng` = 106.656823;
 INSERT INTO Destinations SET `type` = 'restaurant', `name` = 'KFC Ly Thuong Kiet', `address` = '446 Lý Thường Kiệt, phường 7, Hồ Chí Minh, phường 7 Tân Bình Hồ Chí Minh, Việt Nam', `photos`='3', `lat` = 10.786990, `lng` = 106.654075;
 
-INSERT INTO UserDesRate SET `idUser` = 1, `idDestination` = 1, `rate` = 3;
-INSERT INTO UserDesRate SET `idUser` = 1, `idDestination` = 2, `rate` = 5;
-INSERT INTO UserDesRate SET `idUser` = 1, `idDestination` = 3, `rate` = 1;
-INSERT INTO UserDesRate SET `idUser` = 2, `idDestination` = 1, `rate` = 4;
-INSERT INTO UserDesRate SET `idUser` = 2, `idDestination` = 3, `rate` = 1;
-INSERT INTO UserDesRate SET `idUser` = 3, `idDestination` = 1, `rate` = 5;
-INSERT INTO UserDesRate SET `idUser` = 3, `idDestination` = 2, `rate` = 4;
-INSERT INTO UserDesRate SET `idUser` = 3, `idDestination` = 3, `rate` = 2;
-INSERT INTO UserDesRate SET `idUser` = 4, `idDestination` = 3, `rate` = 2;
+INSERT INTO UserDesInteract SET `idUser` = 1, `idDestination` = 1, `rate` = 3, `joined` = 1, `notify` = 0;
+INSERT INTO UserDesInteract SET `idUser` = 1, `idDestination` = 2, `rate` = 5, `joined` = 1, `notify` = 1;
+INSERT INTO UserDesInteract SET `idUser` = 1, `idDestination` = 3, `rate` = 1, `joined` = 1, `notify` = 1;
+INSERT INTO UserDesInteract SET `idUser` = 2, `idDestination` = 1, `rate` = 4, `joined` = 1, `notify` = 0;
+INSERT INTO UserDesInteract SET `idUser` = 2, `idDestination` = 3, `rate` = 1, `joined` = 0, `notify` = 0;
+INSERT INTO UserDesInteract SET `idUser` = 3, `idDestination` = 1, `rate` = 5, `joined` = 0, `notify` = 0;
+INSERT INTO UserDesInteract SET `idUser` = 3, `idDestination` = 2, `rate` = 4, `joined` = 1, `notify` = 1;
+INSERT INTO UserDesInteract SET `idUser` = 3, `idDestination` = 3, `rate` = 2, `joined` = 1, `notify` = 1;
+INSERT INTO UserDesInteract SET `idUser` = 4, `idDestination` = 3, `rate` = 2, `joined` = 1, `notify` = 1;
+
+CREATE VIEW DestinationsView AS
+SELECT *
+FROM Destinations, (
+  SELECT idDestination, AVG(rate) AS rate, SUM(joined) AS joined, SUM(notify) AS notify
+  FROM UserDesInteract
+  GROUP BY idDestination) as A
+WHERE Destinations.id = A.idDestination;
