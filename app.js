@@ -6,7 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var session = require('express-session');
-
+var models = require('./models');
+models.sequelize.sync();
 var index = require('./routes/index');
 var authenticate = require('./routes/authentication')(passport);
 var socket = require('./routes/socket.js');

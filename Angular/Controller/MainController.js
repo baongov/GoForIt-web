@@ -1,6 +1,6 @@
 main.controller("MainController", function ($scope, $http, $location, $rootScope) {
   $rootScope.authenticated = false;
-  $rootScope.username = ''
+  $rootScope.username = null;
   $rootScope.photo = ''
   $scope.facebookLogin = function(){
     $location.path('/auth/facebook');

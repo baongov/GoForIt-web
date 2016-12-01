@@ -22,4 +22,8 @@ router.get('/profile', function(req, res, next) {
   res.render('Profile', { title: 'Profile' });
 });
 
+router.get('/chat', function(req, res){
+  res.render('chat');
+});
+
 module.exports = router;
