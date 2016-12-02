@@ -76,8 +76,12 @@ FROM UserDesInteract
 WHERE notify = 1
 GROUP BY idDestination;
 
+CREATE VIEW D1 AS
+SELECT * FROM
+(Destinations LEFT JOIN Statistic ON Destinations.id = Statistic.id1);
+
 CREATE VIEW DestinationsView AS
 SELECT *
 FROM
-  (SELECT * FROM (Destinations LEFT JOIN Statistic ON Destinations.id = Statistic.id1)) as D1
+  D1
   LEFT JOIN GoingUser ON D1.id = GoingUser.id2;
