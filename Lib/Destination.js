@@ -18,28 +18,9 @@ exports.findById = function(id, callback){
 
 exports.findAllDes = function(callback){
   pool.getConnection(function(err, connection) {
-    var query = connection.query("DROP VIEW DestinationsView; "+
-                                  "CREATE VIEW DestinationsView AS " +
-                                  "SELECT * " +
-                                  "FROM Destinations, (" +
-                                  " SELECT idDestination, AVG(rate) AS rate, SUM(joined) AS joined, SUM(notify) AS notify " +
-                                  " FROM UserDesInteract " +
-                                  " GROUP BY idDestination) as A " +
-                                  "WHERE Destinations.id = A.idDestination;",
-     function(err, result) {
-       if(1)
-       {
-         var query2 = connection.query("SELECT * FROM DestinationsView;",
-         function(err, rows){
-           connection.release();
-           callback(null,rows);
-         });
-         console.log(query2.sql);
-       }
-       else {
-         connection.release();
-         callback('error', null);
-       }
+     var query = connection.query("SELECT * FROM DestinationsView;", function(err, rows){
+       connection.release();
+       callback(null,rows);
      });
      console.log(query.sql)
   });
@@ -56,7 +37,7 @@ exports.CheckJoinedUser = function(idUser, idDestination, callback){
           callback(null, false);
         }
     });
-    console.log(query)
+    console.log(query.sql)
   });
 }
 
@@ -71,7 +52,7 @@ exports.CheckRatedUser = function(idUser, idDestination, callback){
           callback(null, false);
         }
     });
-    console.log(query)
+    console.log(query.sql)
   });
 }
 
@@ -86,7 +67,7 @@ exports.CheckNotifyUser = function(idUser, idDestination, callback){
           callback(null, false);
         }
     });
-    console.log(query);
+    console.log(query.sql);
   });
 }
 
@@ -108,8 +89,10 @@ exports.UpdateRateUser = function(idUser, idDestination, rate, callback){
               callback(null, result);
             });
           }
+        console.log(query2);
         connection.release();
     });
+    console.log(query);
   });
 }
 
@@ -120,7 +103,7 @@ exports.UpdateJoinedUser = function(idUser, idDestination, callback){
         var query2;
           if (rows.length == 0)
           {
-            query2 = connection.query("INSERT INTO UserDesInteract SET idUser = " + idUser + " , idDestination = " + idDestination + ", joined = 1;", function(error, result){
+            query2 = connection.query("INSERT INTO UserDesInteract SET idUser = " + idUser + " , idDestination = " + idDestination + ", joined = 1, notify = 1;", function(error, result){
               callback(null, result);
             });
           }
@@ -129,10 +112,10 @@ exports.UpdateJoinedUser = function(idUser, idDestination, callback){
               callback(null, result);
             });
           }
-        console.log(query2)
+        console.log(query2.sql)
         connection.release();
     });
-    console.log(query)
+    console.log(query.sql)
   });
 }
 
@@ -141,21 +124,50 @@ exports.UpdateNotifyUser = function(idUser, idDestination, callback){
     var query = connection.query("SELECT * FROM UserDesInteract WHERE idUser = " + idUser + " AND idDestination = " + idDestination + ";",
       function(err, rows){
         var query2;
-          if (rows.length == 0)
-          {
-            query2 = connection.query("INSERT INTO UserDesInteract SET idUser = " + idUser + " , idDestination = " + idDestination + ", notify = 1 ;", function(error, result){
+          if (rows.length != 0) {
+            console.log(rows[0]);
+            var value; if (rows[0].notify != 1) value = 1; else value = 0;
+            /*query2 = connection.query("UPDATE UserDesInteract SET notify = " + value + " WHERE idUser = " + idUser + " AND idDestination = " + idDestination + ";", function(error, result){
+              callback(null, value);
+            });*/
+          } else {
+            query2 = connection.query("INSERT INTO UserDesInteract SET idUser = " + idUser + " , idDestination = " + idDestination + ", joined = 1, notify = 1 ;", function(error, result){
               callback(null, result);
             });
           }
-          else {
-            var value; if (rows[0].notify == 1) value = 0; else value == 1;
-            query2 = connection.query("UPDATE UserDesInteract SET notify = " + value + " WHERE idUser = " + idUser + " AND idDestination = " + idDestination + ";", function(error, result){
-              callback(null, result);
-            });
-          }
-        console.log(query2)
+        console.log(query2.sql)
         connection.release();
     });
-    console.log(query2)
+    console.log(query.sql)
+  });
+}
+
+exports.CheckNotifyUser = function(idUser, idDestination, callback){
+  pool.getConnection(function(err, connection) {
+    var query = connection.query("SELECT * FROM UserDesInteract WHERE idUser = " + idUser + " AND idDestination = " + idDestination + ";",
+      function(err, rows){
+        connection.release();
+        if (rows.length != 0 && rows[0].notify == 1)
+          callback(null, true);
+        else {
+          callback(null, false);
+        }
+    });
+    console.log(query.sql);
+  });
+}
+
+exports.findNotifyUser = function(idUser, idDestination, callback){
+  pool.getConnection(function(err, connection) {
+    var query = connection.query("SELECT * FROM UserDesInteract WHERE idUser = " + idUser + " AND idDestination = " + idDestination + ";",
+      function(err, rows){
+        connection.release();
+        if (rows.length != 0 && rows[0].notify == 1)
+          callback(null, true);
+        else {
+          callback(null, false);
+        }
+    });
+    console.log(query.sql);
   });
 }

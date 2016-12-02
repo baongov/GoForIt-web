@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var Destination = require('../Lib/Destination');
+var User = require('../Lib/User');
 
 module.exports = function(passport){
   //sends successful login state back to view(angular)
@@ -30,6 +32,27 @@ module.exports = function(passport){
 
 	});
 
+	router.get('/rateDestination', isLoggedIn, function(req, res){
+		var data = req.body.params;
+		Destination.CheckRatedUser(req.user.id, data.idDestination, function(error, result){
+			if(result){
+				res.send({message:"You rated"});
+			} else {
+				res.send({message:"success"});
+			}
+		});
+	});
+
+	router.post('/updateGoingStatus', isLoggedIn, function(req, res){
+		var data = req.body.params;
+		Destination.UpdateNotifyUser(req.user.id, data.idDestination, function(error, result){
+			if(result){
+				res.send({message:"success"});
+			} else {
+				res.send({message:"false"});
+			}
+		});
+	});
 	function isLoggedIn(req, res, next) {
 
 	     // if user is authenticated in the session, carry on

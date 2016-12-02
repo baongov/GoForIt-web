@@ -33,7 +33,7 @@ CREATE TABLE `Destinations` (
 CREATE TABLE `UserDesInteract` (
   `idUser` int(10) NOT NULL,
   `idDestination` int(10) NOT NULL,
-  `rate` int(1) default 0,
+  `rate` int(1) default null,
   `joined` int (1) default 0,
   `notify` int(1) default 0,
   PRIMARY KEY (idUser, idDestination),
@@ -60,10 +60,24 @@ INSERT INTO UserDesInteract SET `idUser` = 3, `idDestination` = 2, `rate` = 4, `
 INSERT INTO UserDesInteract SET `idUser` = 3, `idDestination` = 3, `rate` = 2, `joined` = 1, `notify` = 1;
 INSERT INTO UserDesInteract SET `idUser` = 4, `idDestination` = 3, `rate` = 2, `joined` = 1, `notify` = 1;
 
+
+CREATE VIEW UserPublicView AS
+SELECT id, displayName, photo, gender, age
+FROM Users;
+
+CREATE VIEW Statistic AS
+SELECT idDestination as id1, AVG(rate) AS rate, SUM(joined) AS joined, SUM(notify) AS notify
+FROM UserDesInteract
+GROUP BY idDestination;
+
+CREATE VIEW GoingUser AS
+SELECT idDestination as id2, GROUP_CONCAT(idUser) as going
+FROM UserDesInteract
+WHERE notify = 1
+GROUP BY idDestination;
+
 CREATE VIEW DestinationsView AS
 SELECT *
-FROM Destinations, (
-  SELECT idDestination, AVG(rate) AS rate, SUM(joined) AS joined, SUM(notify) AS notify
-  FROM UserDesInteract
-  GROUP BY idDestination) as A
-WHERE Destinations.id = A.idDestination;
+FROM
+  (SELECT * FROM (Destinations LEFT JOIN Statistic ON Destinations.id = Statistic.id1)) as D1
+  LEFT JOIN GoingUser ON D1.id = GoingUser.id2;

@@ -41,3 +41,14 @@ exports.addNewUser = function(post , callback){
     console.log(query.sql);
   });
 }
+
+exports.getUsersInfo = function(users, callback){
+  pool.getConnection(function(err, connection) {
+    console.log("users: " + users)
+    var query = connection.query("SELECT * FROM UserPublicView WHERE id IN (" + users.toString()+ ");", function(err, rows){
+      connection.release();
+      callback(null, rows);
+    });
+    console.log(query.sql)
+  });
+}
