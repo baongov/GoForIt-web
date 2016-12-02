@@ -41,14 +41,18 @@ CREATE TABLE `UserDesInteract` (
   FOREIGN KEY (idDestination) REFERENCES Destinations(id)
 );
 
-INSERT INTO Users SET `idFacebook` = '0000000000000000', `displayName` = 'Test1', `gender` = 'female';
-INSERT INTO Users SET `idFacebook` = '0000000000000001', `displayName` = 'Test2', `gender` = 'male';
-INSERT INTO Users SET `idFacebook` = '0000000000000002', `displayName` = 'Test3', `gender` = 'female';
+INSERT INTO Users SET `idFacebook` = '0000000000000000', `displayName` = 'Ngo Bao', `gender` = 'female';
+INSERT INTO Users SET `idFacebook` = '0000000000000001', `displayName` = 'Dinh', `gender` = 'male';
+INSERT INTO Users SET `idFacebook` = '0000000000000002', `displayName` = 'Tran Ten', `gender` = 'female';
 INSERT INTO Users SET `idFacebook` = '0000000000000003', `displayName` = 'Test4', `gender` = 'male';
 
 INSERT INTO Destinations SET `type` = 'touristPlace', `name` = 'Nguyen Hue Walking Street', `address` = '66A Nguyễn Huệ, Bến Nghé, Quận 1', `photos`='1', `lat` = 10.774359, `lng` = 106.703565;
 INSERT INTO Destinations SET `type` = 'cinema', `name` = 'Train to Busan - Lotte Cinema', `address` = 'Tầng 4, Lotte Mart, 968 Đường, 3 Tháng 2, Phường 15, District 11, Ho Chi Minh, Việt Nam', `photos`='2', `lat` = 10.764614, `lng` = 106.656823;
 INSERT INTO Destinations SET `type` = 'restaurant', `name` = 'KFC Ly Thuong Kiet', `address` = '446 Lý Thường Kiệt, phường 7, Hồ Chí Minh, phường 7 Tân Bình Hồ Chí Minh, Việt Nam', `photos`='3', `lat` = 10.786990, `lng` = 106.654075;
+INSERT INTO Destinations SET `type` = 'touristPlace', `name` = 'Starlight Bridge', `address` = '111 Tôn Dật Tiên Phú Mỹ Hưng Q7 TP.HCM, Phú Mỹ Hưng, Củ Chi, Ho Chi Minh', `photos`='4', `lat` = 10.786990, `lng` = 106.654075;
+INSERT INTO Destinations SET `type` = 'show', `name` = 'SNSD VietNam Show', `address` = '202 Hoàng Văn Thụ, Phường 2, Tân Bình, Hồ Chí Minh', `photos`='5', `lat` = 10.786990, `lng` = 106.654075;
+INSERT INTO Destinations SET `type` = 'streetfood', `name` = 'Da Lat Pizza', `address` = '96 Trương Công Định, Tp. Đà Lạt, Lâm Đồng', `photos`='6', `lat` = 10.786990, `lng` = 106.654075;
+INSERT INTO Destinations SET `type` = 'other', `name` = 'Chi Anh Dancesport Club', `address` = ' Khu phố 6- Phường Linh Trung - Quận Thủ Đức, Ho Chi Minh', `photos`='7', `lat` = 10.786990, `lng` = 106.654075;
 
 INSERT INTO UserDesInteract SET `idUser` = 1, `idDestination` = 1, `rate` = 3, `joined` = 1, `notify` = 0;
 INSERT INTO UserDesInteract SET `idUser` = 1, `idDestination` = 2, `rate` = 5, `joined` = 1, `notify` = 1;
@@ -60,6 +64,10 @@ INSERT INTO UserDesInteract SET `idUser` = 3, `idDestination` = 2, `rate` = 4, `
 INSERT INTO UserDesInteract SET `idUser` = 3, `idDestination` = 3, `rate` = 2, `joined` = 1, `notify` = 1;
 INSERT INTO UserDesInteract SET `idUser` = 4, `idDestination` = 3, `rate` = 2, `joined` = 1, `notify` = 1;
 
+CREATE VIEW UserDesInteractView AS
+SELECT displayName as idUser, idDestination, rate, joined, notify
+FROM Users, UserDesInteract
+WHERE Users.id = UserDesInteract.idUser;
 
 CREATE VIEW UserPublicView AS
 SELECT id, displayName, photo, gender, age
@@ -67,12 +75,12 @@ FROM Users;
 
 CREATE VIEW Statistic AS
 SELECT idDestination as id1, AVG(rate) AS rate, SUM(joined) AS joined, SUM(notify) AS notify
-FROM UserDesInteract
+FROM UserDesInteractView
 GROUP BY idDestination;
 
 CREATE VIEW GoingUser AS
 SELECT idDestination as id2, GROUP_CONCAT(idUser) as going
-FROM UserDesInteract
+FROM UserDesInteractView
 WHERE notify = 1
 GROUP BY idDestination;
 

@@ -17,4 +17,12 @@ router.post('/getUsersInfo', function(req, res, next) {
   });
 });
 
+router.post('/getDesInfo', function(req, res, next) {
+  console.log(req.body.params.idDestination);
+  Destination.findById(req.body.params.idDestination ,function(error, rows){
+    console.log(rows)
+    res.send(rows);
+  });
+});
+
 module.exports = router;

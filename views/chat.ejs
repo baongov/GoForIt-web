@@ -145,43 +145,33 @@
     <script src="/Controller/socketCtrl.js"></script>
 </head>
 <body ng-app = "mainModule" ng-controller="SocketCtrl">
-  user1: <input type="text" ng-model="user1"><br>
-  user2: <input type="text" ng-model="user2"><br>
-  <button ng-click="start()">Click me</button>
-  msg: <input type="text" ng-model="messageSend"><button ng-click="sendMsg()">send</button>
-  <div ng-repeat="msg in message track by $index">
-    <span>{{msg}}</span><br />
-  </div>
+  
 <div class="container">
 	<div class="row">
     	<div class="panel panel-chat">
         <div class="panel-heading">
-            <a href="#" class="chatMinimize" onclick="return false"><span>Özgür Gürbüz</span></a>
+            <a href="#" class="chatMinimize" onclick="return false"><span>{{user2}}</span></a>
             <a href="#" class="chatClose" onclick="return false"><i class="glyphicon glyphicon-remove"></i></a>
             <div class="clearFix"></div>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" id="chatbody">
           <div ng-repeat="msg in message track by $index">
-            <div class="messageMe">
+            <div ng-if="msg.split(':')[0]==user1" class="messageMe">
                 <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt=""/>
-                <span>{{msg}}</span>
+                <span>{{msg.split(':')[1]}}</span>
+                <div class="clearFix"></div>
+            </div>
+            <div ng-if="msg.split(':')[0]==user2" class="messageHer">
+                <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt=""/>
+                <span>{{msg.split(':')[1]}}</span>
                 <div class="clearFix"></div>
             </div>
           </div>
-            <!-- <div class="messageMe">
-                <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt=""/>
-                <span>asdasdssadasdasdassssssssssssssssssssssssssssssssssssssssssdasdasd</span>
-                <div class="clearFix"></div>
-            </div>
-            <div class="messageHer">
-                <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt=""/>
-                <span>asdasdsassssssssssssssssssssssssssssssssssssssss</span>
-                <div class="clearFix"></div>
-            </div> -->
             <div class="clearFix"></div>
         </div>
         <div class="panel-footer">
-            <textarea name="textMessage" cols="0" rows="0"></textarea>
+            <textarea name="textMessage" ng-model="messageSend" cols="0" rows="0" ng-keypress="($event.which === 13)?sendMsg():0"></textarea>
+            <!-- <input type="text" cols="0" rows="0" ng-model="messageSend" ng-keypress="($event.which === 13)?sendMsg():0"> -->
         </div>
     </div>
 	</div>

@@ -13,7 +13,10 @@ var getOfflineMsg = function(user, callback){
 }
 
 var setUserSId = function(username, userSId){
+  console.log('setUserSId');
+  console.log(userSId);
   models.User.getUserByUsename(username, function(user){
+    console.log(user);
     user.sId = userSId;
     user.save();
   });
@@ -50,6 +53,7 @@ module.exports = function(socket){
     models.Msg.saveOfflineMsg(data.user2, data.user1, data.message);
     socket.emit('receiveMsg', data.user1+':'+data.message);
     models.User.getUserByUsename(data.user2, function(user){
+      console.log(user);
       if(user.sId){
         socket.to(user.sId).emit('receiveMsg', data.user1+':'+data.message);
       }

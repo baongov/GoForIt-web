@@ -1,14 +1,20 @@
 var models = require('./models');
 
 models.sequelize.sync();
-// var data = {
-//   username: 'asd'
-// }
-// models.User.create(data);
+var data = {
+  username: 'Lu Kai'
+}
+models.User.create(data);
 
-models.User.getUserByUsename('asd',function(data){
-  console.log(data);
-});
+var data2 = {
+  username: 'Bao Ngo'
+}
+
+models.User.create(data2);
+
+// models.User.getUserByUsename('asd',function(data){
+//   console.log(data);
+// });
 
 // var data = {
 //   user1: 'haha',
