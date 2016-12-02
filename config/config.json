@@ -3,7 +3,7 @@
         "dialect": "mysql",
         "username": "root",
         "password": "toor",
-        "database": "smo",
+        "database": "GOFORITDB",
         "host": "127.0.0.1",
         "pool": {
             "max": 5,
